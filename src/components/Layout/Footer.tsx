@@ -89,11 +89,11 @@ const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-yellow-500" />
-                <span className="text-white">0212 123 45 67</span>
+                <span className="text-white">0542 298 4175</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-yellow-500" />
-                <span className="text-white">info@radyoduman.com</span>
+                <span className="text-white">info.radyoduman@gmail.com</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4 text-yellow-500" />
