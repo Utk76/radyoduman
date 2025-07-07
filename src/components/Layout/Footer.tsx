@@ -61,14 +61,7 @@ const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
                   onClick={() => handleNavigation('podcasts')}
                   className="text-white hover:text-yellow-400 transition-colors text-left"
                 >
-                  Podcastler
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => handleNavigation('news')}
-                  className="text-white hover:text-yellow-400 transition-colors text-left"
-                >
+                
                   Reklamlar
                 </button>
               </li>

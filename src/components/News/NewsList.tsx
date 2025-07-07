@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar, User, Eye } from 'lucide-react';
 import { news } from '../../data/mockData';
 
 const NewsList: React.FC = () => {
+  const [visibleContent, setVisibleContent] = useState<{ [key: string]: boolean }>({});
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('tr-TR', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
+  };
+
+  const toggleContent = (id: string) => {
+    setVisibleContent((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id]
+    }));
   };
 
   return (
@@ -56,10 +65,21 @@ const NewsList: React.FC = () => {
                     <span>{formatDate(article.publishDate)}</span>
                   </div>
                 </div>
-                
-                <button className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-black px-6 py-3 rounded-lg font-bold transition-all duration-300">
-                  Devamını Oku
+
+                {/* Devamını Oku Butonu */}
+                <button
+                  onClick={() => toggleContent(article.id)}
+                  className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-black px-6 py-3 rounded-lg font-bold transition-all duration-300"
+                >
+                  {visibleContent[article.id] ? 'Gizle' : 'Devamını Oku'}
                 </button>
+
+                {/* İçeriğin Görünürlüğü */}
+                {visibleContent[article.id] && (
+                  <div className="mt-4 text-yellow-200">
+                    <p>{article.content}</p>
+                  </div>
+                )}
               </div>
             </article>
           ))}
