@@ -41,13 +41,13 @@ const Hero: React.FC = () => {
 <img 
   src="/Radyoduman_Logo.png" 
   alt="Radyo Duman Logo" 
-  className="h-40 md:h-56 lg:h-[35rem] w-auto animate-pulse hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
+  className="h-40 md:h-56 lg:h-[30rem] w-auto animate-pulse hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
   style={{
     filter: 'drop-shadow(0 0 25px rgba(255, 215, 0, 0.5)) drop-shadow(0 0 45px rgba(255, 215, 0, 0.3))'
   }}
 />
             </div>
-          <p className="text-2xl md:text-4xl lg:text-5xl text-white max-w-4xl mx-auto font-bold">
+          <p className="text-2xl md:text-4xl lg:text-4xl text-white max-w-3xl mx-auto font-bold">
   Türkiye'nin En Kaliteli Müzik Radyosu
 </p>
 
