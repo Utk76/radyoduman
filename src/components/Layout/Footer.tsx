@@ -104,7 +104,9 @@ const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-yellow-500/30 text-center text-yellow-300">
-          <p>&copy; 2024 RadyoDuman. Tüm hakları saklıdır.</p>
+          <p>&copy; © 2025 RadyoDuman. Tüm hakları saklıdır.  
+              Web tasarımı ve geliştirme: Efc Dijital Reklam Ajansı.
+</p>
         </div>
       </div>
     </footer>
