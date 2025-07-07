@@ -69,7 +69,7 @@ const Hero: React.FC = () => {
             <button 
               onClick={() => {
                 // Canlı yayın URL'si - gerçek radyo stream URL'si buraya eklenecek
-                const radioStreamUrl = "https://stream.radyoduman.com/live"; // Örnek URL
+                const radioStreamUrl = "https://radyo.yayini.net/8012/stream"; // Örnek URL
                 window.open(radioStreamUrl, '_blank');
               }}
               className="group relative bg-white text-black p-6 md:p-8 rounded-full transition-all duration-300 hover:bg-gray-200 hover:scale-105 shadow-2xl"
