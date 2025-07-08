@@ -11,7 +11,7 @@ interface TrackInfo {
 const AudioPlayer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(70);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true); // Başlangıçta muted başlat
   const [currentTime, setCurrentTime] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -174,6 +174,21 @@ const AudioPlayer: React.FC = () => {
         clearInterval(fetchIntervalRef.current);
       }
       clearTimeout(autoStartTimer);
+    };
+  }, [fetchCurrentTrack]);
+
+  // useEffect ile autoplay ve muted başlatmayı garanti altına al
+  useEffect(() => {
+    fetchCurrentTrack();
+    fetchIntervalRef.current = setInterval(fetchCurrentTrack, 10000); // 10 seconds
+    // Otomatik başlatma için muted olarak başlat
+    setIsUserInteracted(true);
+    setIsPlaying(true);
+    setIsMuted(true);
+    return () => {
+      if (fetchIntervalRef.current) {
+        clearInterval(fetchIntervalRef.current);
+      }
     };
   }, [fetchCurrentTrack]);
 
@@ -465,6 +480,8 @@ const AudioPlayer: React.FC = () => {
         ref={audioRef} 
         preload="metadata"
         crossOrigin="anonymous"
+        autoPlay
+        muted={isMuted}
       >
         <source src="http://radyo.yayini.net:8012/stream" type="audio/mpeg" />
         <source src="https://radyo.yayini.net:8012/stream" type="audio/mpeg" />

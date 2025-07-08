@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import AudioPlayer from './components/Player/AudioPlayer';
@@ -13,6 +13,31 @@ import ContactForm from './components/Contact/ContactForm';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+
+  // Profesyonel kopyalama/çekme/sağ tık/inspect engeli
+  useEffect(() => {
+    const preventDefault = (e: any) => e.preventDefault();
+    const blockF12 = (e: KeyboardEvent) => {
+      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) {
+        e.preventDefault();
+        return false;
+      }
+    };
+    document.addEventListener('contextmenu', preventDefault);
+    document.addEventListener('copy', preventDefault);
+    document.addEventListener('cut', preventDefault);
+    document.addEventListener('selectstart', preventDefault);
+    document.addEventListener('dragstart', preventDefault);
+    document.addEventListener('keydown', blockF12);
+    return () => {
+      document.removeEventListener('contextmenu', preventDefault);
+      document.removeEventListener('copy', preventDefault);
+      document.removeEventListener('cut', preventDefault);
+      document.removeEventListener('selectstart', preventDefault);
+      document.removeEventListener('dragstart', preventDefault);
+      document.removeEventListener('keydown', blockF12);
+    };
+  }, []);
 
   const renderPage = () => {
     switch (currentPage) {
