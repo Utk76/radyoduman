@@ -101,7 +101,7 @@ const ContactForm: React.FC = () => {
 
               <div>
                 <label htmlFor="requestSong" className="block text-sm font-medium text-gray-100 mb-2">
-                  İstek Parça *
+                  İstek Şarkı *
                 </label>
                 <input
                   type="text"

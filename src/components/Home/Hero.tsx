@@ -2,20 +2,72 @@ import React, { useState, useEffect } from 'react';
 import { Play, Users, Headphones, Music } from 'lucide-react';
 
 const Hero: React.FC = () => {
-  const [listenerCount, setListenerCount] = useState(50);
+  const [listenerCount, setListenerCount] = useState<number | null>(null);
   const [archiveCount, setArchiveCount] = useState(10000);
+  const [currentSong, setCurrentSong] = useState('');
+
+  // AudioPlayer'daki gibi gerçek zamanlı şarkı bilgisini çek
+  useEffect(() => {
+    const fetchCurrentSong = async () => {
+      const apis = [
+        'http://radyo.yayini.net:8012/7.html',
+        'http://radyo.yayini.net:8012/stats?json=1',
+        'http://radyo.yayini.net:8012/status-json.xsl',
+        'http://radyo.yayini.net:8012/played.html?type=json',
+        'http://radyo.yayini.net:8012/currentsong?sid=1'
+      ];
+      for (const apiUrl of apis) {
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json, text/html, text/plain, */*',
+              'Cache-Control': 'no-cache',
+              'Pragma': 'no-cache'
+            },
+            mode: 'cors'
+          });
+          if (!response.ok) continue;
+          const contentType = response.headers.get('content-type');
+          let data;
+          if (contentType && contentType.includes('application/json')) {
+            data = await response.json();
+          } else {
+            const text = await response.text();
+            if (apiUrl.includes('7.html') || apiUrl.includes('currentsong')) {
+              const songInfo = text.trim();
+              if (songInfo && songInfo !== 'undefined' && songInfo !== '') {
+                setCurrentSong(songInfo);
+                return;
+              }
+            }
+            continue;
+          }
+          let trackInfo = null;
+          if (data.icestats?.source) {
+            trackInfo = data.icestats.source;
+          } else if (data.source) {
+            trackInfo = data.source;
+          } else if (data.title || data.artist) {
+            trackInfo = data;
+          }
+          if (trackInfo) {
+            const title = trackInfo.title || trackInfo.songtitle || trackInfo.yayintitle || '';
+            setCurrentSong(title);
+            return;
+          }
+        } catch (error) {
+          continue;
+        }
+      }
+    };
+    fetchCurrentSong();
+    const interval = setInterval(fetchCurrentSong, 10000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
-    // Dinleyici sayısını dinamik olarak değiştir
-    const listenerInterval = setInterval(() => {
-      setListenerCount(prev => {
-        const change = Math.random() > 0.5 ? 1 : -1;
-        const newCount = prev + change;
-        return Math.max(45, Math.min(65, newCount)); // 45-65 arası
-      });
-    }, 3000);
-
-    // Arşiv sayısını dinamik olarak değiştir
+    // Arşiv sayısını dinamik olarak değiştir (canlıya çekilmek istenirse ayrıca yapılabilir)
     const archiveInterval = setInterval(() => {
       setArchiveCount(prev => {
         const change = Math.floor(Math.random() * 10) - 5;
@@ -25,9 +77,82 @@ const Hero: React.FC = () => {
     }, 5000);
 
     return () => {
-      clearInterval(listenerInterval);
       clearInterval(archiveInterval);
     };
+  }, []);
+
+  // Şarkı ve dinleyici bilgisini birlikte çek
+  useEffect(() => {
+    const fetchCurrentSongAndListeners = async () => {
+      const apis = [
+        'http://radyo.yayini.net:8012/7.html',
+        'http://radyo.yayini.net:8012/stats?json=1',
+        'http://radyo.yayini.net:8012/status-json.xsl',
+        'http://radyo.yayini.net:8012/played.html?type=json',
+        'http://radyo.yayini.net:8012/currentsong?sid=1'
+      ];
+      for (const apiUrl of apis) {
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json, text/html, text/plain, */*',
+              'Cache-Control': 'no-cache',
+              'Pragma': 'no-cache'
+            },
+            mode: 'cors'
+          });
+          if (!response.ok) continue;
+          const contentType = response.headers.get('content-type');
+          let data;
+          if (contentType && contentType.includes('application/json')) {
+            data = await response.json();
+            // Dinleyici sayısı için Icecast/Shoutcast json formatı
+            let listeners = null;
+            if (data.icestats?.source) {
+              listeners = data.icestats.source.listeners || data.icestats.source.listener || null;
+            } else if (data.source) {
+              listeners = data.source.listeners || data.source.listener || null;
+            } else if (typeof data.listeners === 'number') {
+              listeners = data.listeners;
+            }
+            if (listeners !== null && !isNaN(listeners)) {
+              setListenerCount(listeners);
+            }
+            // Şarkı başlığı
+            let trackInfo = null;
+            if (data.icestats?.source) {
+              trackInfo = data.icestats.source;
+            } else if (data.source) {
+              trackInfo = data.source;
+            } else if (data.title || data.artist) {
+              trackInfo = data;
+            }
+            if (trackInfo) {
+              const title = trackInfo.title || trackInfo.songtitle || trackInfo.yayintitle || '';
+              setCurrentSong(title);
+            }
+            return;
+          } else {
+            const text = await response.text();
+            if (apiUrl.includes('7.html') || apiUrl.includes('currentsong')) {
+              const songInfo = text.trim();
+              if (songInfo && songInfo !== 'undefined' && songInfo !== '') {
+                setCurrentSong(songInfo);
+                // Dinleyici sayısı bu endpointte yok
+                return;
+              }
+            }
+            continue;
+          }
+        } catch (error) {
+          continue;
+        }
+      }
+    };
+    fetchCurrentSongAndListeners();
+    const interval = setInterval(fetchCurrentSongAndListeners, 10000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -60,24 +185,8 @@ const Hero: React.FC = () => {
               <span>CANLI YAYIN</span>
             </div>
             <div className="text-yellow-200 text-center sm:text-left">
-              Şimdi Çalan: <span className="text-gray-100 font-medium">Huzurm Kalmadı - Ferdi Tayfur</span>
+              Şimdi Çalan: <span className="text-gray-100 font-medium">{currentSong || 'Bilinmiyor'}</span>
             </div>
-          </div>
-
-          {/* Play Button */}
-          <div className="mb-16">
-            <button 
-              onClick={() => {
-                // Canlı yayın URL'si - gerçek radyo stream URL'si buraya eklenecek
-                const radioStreamUrl = "https://radyo.yayini.net/8012/stream"; // Örnek URL
-                window.open(radioStreamUrl, '_blank');
-              }}
-              className="group relative bg-white text-black p-6 md:p-8 rounded-full transition-all duration-300 hover:bg-gray-200 hover:scale-105 shadow-2xl"
-            >
-              <Play className="h-8 w-8 md:h-12 md:w-12 ml-1" />
-              <div className="absolute inset-0 rounded-full bg-yellow-500 animate-ping opacity-25"></div>
-            </button>
-            <p className="text-white mt-4 text-lg md:text-xl font-medium">Dinlemeye Başla</p>
           </div>
 
           {/* Enhanced Dynamic Stats */}
@@ -87,12 +196,12 @@ const Hero: React.FC = () => {
                 <Users className="h-6 w-6 md:h-8 md:w-8 text-yellow-500 mx-auto mb-2 animate-bounce" />
                 <div className="text-xl md:text-3xl font-bold text-yellow-400 mb-1">
                   <span className="inline-block animate-pulse bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
-                    {listenerCount}+
+                    {listenerCount !== null ? `${listenerCount}+` : '...'}
                   </span>
                 </div>
                 <div className="text-yellow-200 text-sm md:text-base font-medium">Aktif Dinleyici</div>
                 <div className="mt-2 h-1 bg-yellow-500/20 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-full animate-pulse" style={{width: `${(listenerCount/65)*100}%`}}></div>
+                  <div className="h-full bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-full animate-pulse" style={{width: `${listenerCount !== null ? (listenerCount/65)*100 : 0}%`}}></div>
                 </div>
               </div>
             </div>

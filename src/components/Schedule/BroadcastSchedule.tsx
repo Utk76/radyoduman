@@ -55,11 +55,11 @@ const BroadcastSchedule: React.FC = () => {
 
         {/* Şu anki program */}
         {currentProgram && (
-          <div className="bg-red-500/20 backdrop-blur-sm rounded-2xl p-8 mb-8 border border-red-500/30">
+          <div className="bg-yellow-500/20 backdrop-blur-sm rounded-2xl p-8 mb-8 border border-yellow-500/30">
             <div className="text-center">
               <div className="flex items-center justify-center space-x-2 mb-4">
-                <Radio className="h-6 w-6 text-red-500 animate-pulse" />
-                <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                <Radio className="h-6 w-6 text-yellow-500 animate-pulse" />
+                <span className="bg-yellow-500 text-black px-3 py-1 rounded-full text-sm font-bold shadow-lg border border-yellow-300">
                   ŞİMDİ YAYIN
                 </span>
               </div>
@@ -84,7 +84,7 @@ const BroadcastSchedule: React.FC = () => {
                   key={day}
                   className={`text-center text-sm font-medium p-2 rounded ${
                     index === (todayIndex === 0 ? 6 : todayIndex - 1)
-                      ? 'bg-red-500 text-white'
+                      ? 'bg-yellow-500 text-black font-bold shadow-lg border border-yellow-300'
                       : 'text-gray-400'
                   }`}
                 >
@@ -100,7 +100,7 @@ const BroadcastSchedule: React.FC = () => {
                   key={index}
                   className={`grid grid-cols-8 gap-2 p-3 rounded-lg ${
                     slot === currentProgram
-                      ? 'bg-red-500/20 border border-red-500/30'
+                      ? 'bg-yellow-500/20 border border-yellow-500/30'
                       : 'bg-gray-700/50 hover:bg-gray-600/50'
                   } transition-colors`}
                 >
@@ -109,7 +109,7 @@ const BroadcastSchedule: React.FC = () => {
                     <div key={day} className="text-center p-2">
                       {slot.days.includes(day) ? (
                         <>
-                          <div className={`text-sm font-medium ${slot.type === 'live' ? 'text-white' : 'text-gray-400'}`}>
+                          <div className={`text-sm font-medium ${slot.type === 'live' ? 'text-white' : 'text-yellow-500'}`}>
                             {slot.program}
                           </div>
                           <div className="text-xs text-gray-500 mt-1">{slot.host}</div>

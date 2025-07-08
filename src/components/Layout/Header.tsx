@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onPageChange }) => {
           <div className="flex items-center">
             <button 
               onClick={() => onPageChange('home')}
-              className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent animate-pulse hover:scale-110 transition-transform duration-300"
+              className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent drop-shadow-lg"
             >
               RADYO DUMAN
             </button>

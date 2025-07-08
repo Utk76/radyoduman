@@ -24,7 +24,7 @@ const AudioPlayer: React.FC = () => {
   });
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const fetchIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const fetchIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Fetch current track info with multiple API attempts
   const fetchCurrentTrack = useCallback(async () => {
@@ -284,7 +284,7 @@ const AudioPlayer: React.FC = () => {
 
   // Timer for live stream
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     if (isPlaying) {
       interval = setInterval(() => {
         setCurrentTime((prev) => prev + 1);
@@ -327,6 +327,38 @@ const AudioPlayer: React.FC = () => {
     }
   };
 
+  // Haftalık programı ve şu anki yayını tespit eden fonksiyon (BroadcastSchedule'dan alınan mantık)
+  const schedule = [
+    { time: '06:00 - 20:00', program: 'Oto Yayın', host: 'Otomatik Yayın', type: 'auto', days: ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'] },
+    { time: '20:00 - 22:00', program: 'Fatih Yayında', host: 'Fatih', type: 'live', days: ['Pazartesi', 'Salı', 'Cuma'] },
+    { time: '22:00 - 24:00', program: 'Türkülere Yolcoluk', host: 'Cihan Güman', type: 'auto', days: ['Pazartesi'] },
+    { time: '12:00 - 14:00', program: 'Oto Yayın', host: 'Otomatik Yayın', type: 'live', days: ['Salı', 'Perşembe'] },
+    { time: '14:00 - 16:00', program: 'Öğleden Sonra', host: 'Müzik Arşivi', type: 'auto', days: ['Çarşamba', 'Perşembe'] },
+    { time: '16:00 - 18:00', program: 'Oto Yayın', host: 'Otomatik Yayın', type: 'live', days: ['Çarşamba'] },
+    { time: '18:00 - 20:00', program: 'Oto Yayın', host: 'Otomatik Yayın', type: 'live', days: ['Çarşamba', 'Perşembe', 'Cuma'] },
+    { time: '20:00 - 22:00', program: 'Kum Saati', host: 'Meryem Özbay', type: 'live', days: ['Çarşamba', 'Perşembe'] },
+    { time: '20:00 - 22:00', program: 'Oto Yayın', host: 'Müzik Arşivi', type: 'auto', days: ['Cumartesi'] },
+    { time: '22:00 - 02:00', program: 'Oto Yayın', host: 'Can Yılmaz', type: 'live', days: ['Perşembe', 'Cuma'] },
+    { time: '02:00 - 06:00', program: 'Oto Yayın', host: 'Otomatik Yayın', type: 'auto', days: ['Pazar'] }
+  ];
+  const days = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'];
+  const todayIndex = new Date().getDay();
+  const currentHour = new Date().getHours();
+  const currentDayName = todayIndex === 0 ? 'Pazar' : days[todayIndex - 1];
+  const getCurrentProgram = () => {
+    return schedule.find(slot => {
+      if (!slot.days.includes(currentDayName)) return false;
+      const [startStr, endStr] = slot.time.split(' - ');
+      const [startHour] = startStr.split(':').map(Number);
+      const [endHour] = endStr.split(':').map(Number);
+      if (endHour < startHour) {
+        return currentHour >= startHour || currentHour < endHour;
+      }
+      return currentHour >= startHour && currentHour < endHour;
+    });
+  };
+  const currentProgram = getCurrentProgram();
+
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-t from-black via-black/95 to-black/90 backdrop-blur-sm border-t border-yellow-500/30">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
@@ -348,12 +380,10 @@ const AudioPlayer: React.FC = () => {
               
               <div className="hidden sm:block">
                 <div className="flex items-center space-x-2">
-                  <span className="bg-gradient-to-r from-red-500 to-red-600 text-white px-2 py-1 rounded text-xs font-bold animate-pulse">
-                    CANLI
+                  <span className="text-yellow-400 text-sm font-medium">
+                    {currentProgram ? `${currentProgram.program} ${currentProgram.host ? `- Sunucu: ${currentProgram.host}` : ''}` : 'Yayın Yok'}
                   </span>
-                  <span className="text-yellow-400 text-sm font-medium">{currentTrack.program}</span>
                 </div>
-                <div className="text-yellow-300 text-xs">Sunucu: {currentTrack.host}</div>
               </div>
             </div>
 

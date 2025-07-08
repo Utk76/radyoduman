@@ -36,7 +36,7 @@ export const programs: Program[] = [
   host: '',
   time: '00:00 - 09:00',
   day: 'Hergün',
-  image: 'Radyoduman_Logo.png'
+  image: 'WhatsApp_Image_2025-07-04_at_20.57.24-removebg-preview.png'
 }
 
 ];
@@ -109,6 +109,7 @@ export const topTracks: TopTrack[] = [
     artist: 'Ferdi Tayfur',
     rank: 1,
     image: 'https://i.ytimg.com/vi/D2xXMSwBZh4/maxresdefault.jpg',
+    listenUrl: 'https://www.youtube.com/watch?v=D2xXMSwBZh4'
   },
   {
     id: '2',
@@ -116,6 +117,7 @@ export const topTracks: TopTrack[] = [
     artist: 'Bergen',
     rank: 2,
     image: 'https://cdn-images.dzcdn.net/images/cover/6292dfb5ad1d3e6b49565cd4decf82ff/1900x1900-000000-80-0-0.jpg',
+    listenUrl: 'https://open.spotify.com/track/2tQw1V2lF1Qw1V2lF1Qw1V2'
   },
   {
     id: '3',

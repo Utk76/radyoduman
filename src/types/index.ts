@@ -38,5 +38,5 @@ export interface TopTrack {
   rank: number;
   
   image: string;
- 
+  listenUrl?: string;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Clock, User, Radio } from 'lucide-react';
-import { programs } from '../../data/mockData';
+import { programs as allPrograms } from '../../data/mockData';
 
 const ProgramsList: React.FC = () => {
   return (
@@ -16,7 +16,7 @@ const ProgramsList: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {programs.map((program) => (
+          {allPrograms.filter(p => p.title !== 'Oto Yayın').slice(0, 3).map((program) => (
             <div
               key={program.id}
               className="bg-gray-800/50 backdrop-blur-sm rounded-2xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300 group"
@@ -27,12 +27,6 @@ const ProgramsList: React.FC = () => {
                   alt={program.title}
                   className="w-full h-full object-cover"
                 />
-                {program.isLive && (
-                  <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center space-x-1">
-                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                    <span>CANLI</span>
-                  </div>
-                )}
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <button className="bg-red-500 text-white p-4 rounded-full hover:bg-red-600 transition-colors">
                     <Radio className="h-8 w-8" />
@@ -55,7 +49,7 @@ const ProgramsList: React.FC = () => {
                   </div>
                 </div>
                 
-                <button className="mt-6 w-full bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                <button className="mt-6 w-full bg-yellow-500 hover:bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold border border-yellow-300 shadow-lg transition-colors">
                   Program Detayları
                 </button>
               </div>
