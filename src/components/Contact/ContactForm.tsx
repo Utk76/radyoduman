@@ -70,7 +70,7 @@ const ContactForm: React.FC = () => {
                   <div>
                     <h3 className="text-yellow-400 font-medium">Adres</h3>
                     <p className="text-yellow-200">Radyo Duman</p>
-                    <p className="text-gray-100">Mecidiyeköy,</p>
+                    <p className="text-gray-100">Sefaköy,</p>
                     <p className="text-gray-100">34000 İstanbul, Türkiye</p>
                   </div>
                 </div>
