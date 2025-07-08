@@ -73,16 +73,16 @@ const BroadcastSchedule: React.FC = () => {
 
         {/* Haftalık program tablosu */}
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl overflow-hidden">
-          <div className="p-8">
-            <h2 className="text-2xl font-bold text-white mb-6">Haftalık Program</h2>
+          <div className="p-4 sm:p-8 overflow-x-auto">
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Haftalık Program</h2>
 
             {/* Gün başlıkları */}
-            <div className="grid grid-cols-8 gap-2 mb-4">
-              <div className="text-center text-gray-400 font-medium">Saat</div>
+            <div className="min-w-[700px] grid grid-cols-8 gap-1 sm:gap-2 mb-2 sm:mb-4">
+              <div className="text-center text-gray-400 font-medium text-xs sm:text-sm">Saat</div>
               {days.map((day, index) => (
                 <div
                   key={day}
-                  className={`text-center text-sm font-medium p-2 rounded ${
+                  className={`text-center text-xs sm:text-sm font-medium p-1 sm:p-2 rounded truncate ${
                     index === (todayIndex === 0 ? 6 : todayIndex - 1)
                       ? 'bg-yellow-500 text-black font-bold shadow-lg border border-yellow-300'
                       : 'text-gray-400'
@@ -94,31 +94,26 @@ const BroadcastSchedule: React.FC = () => {
             </div>
 
             {/* Program saatleri ve gün bazlı gösterim */}
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2 min-w-[700px]">
               {schedule.map((slot, index) => (
                 <div
                   key={index}
-                  className={`grid grid-cols-8 gap-2 p-3 rounded-lg ${
+                  className={`grid grid-cols-8 gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg ${
                     slot === currentProgram
                       ? 'bg-yellow-500/20 border border-yellow-500/30'
                       : 'bg-gray-700/50 hover:bg-gray-600/50'
                   } transition-colors`}
                 >
-                  <div className="text-center text-sm text-gray-400 font-mono">{slot.time}</div>
+                  <div className="text-center text-xs sm:text-sm text-gray-400 font-mono truncate">{slot.time}</div>
                   {days.map((day) => (
-                    <div key={day} className="text-center p-2">
+                    <div key={day} className="text-center p-1 sm:p-2">
                       {slot.days.includes(day) ? (
                         <>
-                          <div className={`text-sm font-medium ${slot.type === 'live' ? 'text-white' : 'text-yellow-500'}`}>
-                            {slot.program}
-                          </div>
-                          <div className="text-xs text-gray-500 mt-1">{slot.host}</div>
+                          <div className={`text-xs sm:text-sm font-medium truncate ${slot.type === 'live' ? 'text-white' : 'text-yellow-500'}`}>{slot.program}</div>
+                          <div className="text-[10px] sm:text-xs text-gray-500 mt-0.5 sm:mt-1 truncate">{slot.host}</div>
                         </>
                       ) : (
-                        // Yayın olmayan günlerde otomatik yayın gösteriliyor:
-                        <div className="text-sm font-medium text-gray-400">
-                          Oto Yayın
-                        </div>
+                        <div className="text-xs sm:text-sm font-medium text-gray-400 truncate">Oto Yayın</div>
                       )}
                     </div>
                   ))}
