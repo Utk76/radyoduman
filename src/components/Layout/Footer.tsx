@@ -21,14 +21,12 @@ const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
           {/* Logo and Description */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <img 
-                src="/Radyoduman_Logo.png" 
-                alt="Radyo Duman Logo" 
-                className="h-16 w-auto hover:scale-105 transition-transform duration-300"
-                style={{
-                  filter: 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.3))'
-                }}
-              />
+              <span
+                className="text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(255,215,0,0.5)]"
+                style={{ letterSpacing: '0.05em', textShadow: '0 2px 8px rgba(255,215,0,0.5)' }}
+              >
+                RADYO DUMAN
+              </span>
             </div>
             <p className="text-yellow-200">
               Türkiye'nin en kaliteli müzik radyosu. 7/24 kesintisiz yayın ile sizlerleyiz.

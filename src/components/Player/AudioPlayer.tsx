@@ -154,33 +154,10 @@ const AudioPlayer: React.FC = () => {
     console.log('No APIs worked, keeping current track info');
   }, []);
 
-  // Initialize audio and fetch track info
+  // useEffect ile autoplay ve track güncellemesini tek bir yerde yap
   useEffect(() => {
     fetchCurrentTrack();
-    
-    // Set up interval for fetching track info
-    fetchIntervalRef.current = setInterval(fetchCurrentTrack, 10000); // 10 seconds
-    
-    // Auto-start after 2 seconds if user hasn't interacted
-    const autoStartTimer = setTimeout(() => {
-      if (!isUserInteracted) {
-        setIsUserInteracted(true);
-        setIsPlaying(true);
-      }
-    }, 2000);
-    
-    return () => {
-      if (fetchIntervalRef.current) {
-        clearInterval(fetchIntervalRef.current);
-      }
-      clearTimeout(autoStartTimer);
-    };
-  }, [fetchCurrentTrack]);
-
-  // useEffect ile autoplay ve muted başlatmayı garanti altına al
-  useEffect(() => {
-    fetchCurrentTrack();
-    fetchIntervalRef.current = setInterval(fetchCurrentTrack, 10000); // 10 seconds
+    fetchIntervalRef.current = setInterval(fetchCurrentTrack, 30000); // 30 seconds
     setIsUserInteracted(true);
     setIsPlaying(true);
     return () => {
