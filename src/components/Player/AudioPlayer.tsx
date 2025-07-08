@@ -11,7 +11,7 @@ interface TrackInfo {
 const AudioPlayer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(70);
-  const [isMuted, setIsMuted] = useState(true); // Başlangıçta muted başlat
+  const [isMuted, setIsMuted] = useState(false); // Başlangıçta muted değil, ses açık başlasın
   const [currentTime, setCurrentTime] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -181,10 +181,8 @@ const AudioPlayer: React.FC = () => {
   useEffect(() => {
     fetchCurrentTrack();
     fetchIntervalRef.current = setInterval(fetchCurrentTrack, 10000); // 10 seconds
-    // Otomatik başlatma için muted olarak başlat
     setIsUserInteracted(true);
     setIsPlaying(true);
-    setIsMuted(true);
     return () => {
       if (fetchIntervalRef.current) {
         clearInterval(fetchIntervalRef.current);

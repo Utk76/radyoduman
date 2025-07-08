@@ -1,39 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { TrendingUp, Play } from 'lucide-react';
-import { fetchYoutubeTrendingMusic } from '../../utils/fetchYoutubeTrending';
 import { topTracks as mockTracks } from '../../data/mockData';
 
-const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
-
 const TopTracks: React.FC = () => {
-  const [tracks, setTracks] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!API_KEY) {
-      setTracks(mockTracks);
-      setLoading(false);
-      setError('API anahtarı bulunamadı, örnek liste gösteriliyor.');
-      return;
-    }
-    fetchYoutubeTrendingMusic(API_KEY)
-      .then((data) => {
-        if (!data || data.length === 0) {
-          setTracks(mockTracks);
-          setError('YouTube verisi alınamadı, örnek liste gösteriliyor.');
-        } else {
-          setTracks(data);
-          setError(null);
-        }
-      })
-      .catch(() => {
-        setTracks(mockTracks);
-        setError('YouTube verisi alınamadı, örnek liste gösteriliyor.');
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
   return (
     <section className="py-16 bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,13 +14,8 @@ const TopTracks: React.FC = () => {
           <p className="text-gray-400 text-lg">Bu hafta en çok dinlenen şarkılar</p>
         </div>
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8">
-          {loading ? (
-            <div className="text-center text-yellow-400 py-8">Yükleniyor...</div>
-          ) : error ? (
-            <div className="text-center text-red-400 py-4">{error}</div>
-          ) : null}
           <div className="space-y-4">
-            {tracks.map((track, index) => (
+            {mockTracks.map((track, index) => (
               <div
                 key={track.id}
                 className="flex items-center space-x-4 p-4 rounded-lg hover:bg-gray-700/50 transition-colors group"
