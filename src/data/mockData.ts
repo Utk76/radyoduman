@@ -86,7 +86,7 @@ export const news: NewsItem[] = [
     title: 'Yeni Sponsorluk Duyurusu',
     excerpt: 'Luxe Mobilya Sponsorluğu ile.',
     content: 'Meryem Özbay ile Kum Saati Programı, Luxe Mobilya sponsorluğunda yayın hayatına devam ediyor...',
-    publishDate: '2024-01-18',
+    publishDate: '2025-06-09',
     image: 'luxemobilya.png',
     author: 'Program Koordinatörü'
   },
@@ -95,7 +95,7 @@ export const news: NewsItem[] = [
     title: 'Radyomuzun Yeni Sponsoru',
     excerpt: 'Dealmosaic Cosmetics.',
     content: 'Radyomuza Hayırlı Olsun, Dealmosaic Cosmetics ile yeni bir yolculuğa başlıyoruz...',
-    publishDate: '2024-01-15',
+    publishDate: '2025-06-5',
     image: 'dealcosmetics.png',
     author: 'Araştırma Departmanı'
   }
