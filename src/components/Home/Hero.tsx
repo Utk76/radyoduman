@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Play, Users, Headphones, Music } from 'lucide-react';
 
 const Hero: React.FC = () => {
-  const [listenerCount, setListenerCount] = useState<number | null>(null);
+  const [listenerCount, setListenerCount] = useState<number>(18000);
   const [archiveCount, setArchiveCount] = useState(10000);
   const [currentSong, setCurrentSong] = useState('');
 
@@ -117,7 +117,7 @@ const Hero: React.FC = () => {
               listeners = data.listeners;
             }
             if (listeners !== null && !isNaN(listeners)) {
-              setListenerCount(listeners);
+              setListenerCount(prev => Math.max(prev, 18000 + listeners + 1));
             }
             // Şarkı başlığı
             let trackInfo = null;
@@ -199,7 +199,7 @@ const Hero: React.FC = () => {
                     {listenerCount !== null ? `${listenerCount}+` : '...'}
                   </span>
                 </div>
-                <div className="text-yellow-200 text-sm md:text-base font-medium">Aktif Dinleyici</div>
+                <div className="text-yellow-200 text-sm md:text-base font-medium">Şu ana kadar toplam dinleyici</div>
                 <div className="mt-2 h-1 bg-yellow-500/20 rounded-full overflow-hidden">
                   <div className="h-full bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-full animate-pulse" style={{width: `${listenerCount !== null ? (listenerCount/65)*100 : 0}%`}}></div>
                 </div>
