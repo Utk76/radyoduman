@@ -6,8 +6,8 @@ export const programs: Program[] = [
   title: 'Kum Saati',
   description: 'Arabesk şarkıların adresi.',
   host: 'Meryem Özbay',
-  time: '20:00 - 22:00',
-  day: 'Çarşamba, Perşembe',
+  time: 'Cumartesi 16:00-18:00, Pazar 18:00-20:00',
+  day: 'Cumartesi, Pazar',
   image: 'meryemozbay.jpg',
   isLive: true
 },
@@ -17,7 +17,7 @@ export const programs: Program[] = [
   description: 'Özgün Müzikler.',
   host: 'Fatih Turul',
   time: '20:00 - 22:00',
-  day: 'Pazartesi,Salı,Cuma',
+  day: 'Pazartesi,Salı,Cuma,Cumartesi',
   image: 'fatih.jpg'
 },
 {

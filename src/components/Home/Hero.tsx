@@ -166,7 +166,7 @@ const Hero: React.FC = () => {
 <img 
   src="/Radyoduman_Logo.png" 
   alt="Radyo Duman Logo" 
-  className="h-40 md:h-56 lg:h-[30rem] w-auto animate-pulse hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
+  className="h-40 md:h-56 lg:h-[20rem] w-auto animate-pulse hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
   style={{
     filter: 'drop-shadow(0 0 25px rgba(255, 215, 0, 0.5)) drop-shadow(0 0 45px rgba(255, 215, 0, 0.3))'
   }}

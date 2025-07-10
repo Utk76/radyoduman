@@ -29,11 +29,11 @@ const AudioPlayer: React.FC = () => {
   // Fetch current track info with multiple API attempts
   const fetchCurrentTrack = useCallback(async () => {
     const apis = [
-      'http://radyo.yayini.net:8012/7.html',
-      'http://radyo.yayini.net:8012/stats?json=1',
-      'http://radyo.yayini.net:8012/status-json.xsl',
-      'http://radyo.yayini.net:8012/played.html?type=json',
-      'http://radyo.yayini.net:8012/currentsong?sid=1'
+      'http://radyo.yayini.net:8004/7.html',
+      'http://radyo.yayini.net:8004/stats?json=1',
+      'http://radyo.yayini.net:8004/status-json.xsl',
+      'http://radyo.yayini.net:8004/played.html?type=json',
+      'http://radyo.yayini.net:8004/currentsong?sid=1'
     ];
 
     for (const apiUrl of apis) {
@@ -458,9 +458,8 @@ const AudioPlayer: React.FC = () => {
         autoPlay
         muted={isMuted}
       >
-        <source src="http://radyo.yayini.net:8012/stream" type="audio/mpeg" />
-        <source src="https://radyo.yayini.net:8012/stream" type="audio/mpeg" />
-        <source src="http://radyo.yayini.net:8012/" type="audio/mpeg" />
+        <source src="https://radyo.yayini.net/8004/stream" type="audio/mpeg" />
+        <source src="https://radyo.yayini.net:8004" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
     </div>
