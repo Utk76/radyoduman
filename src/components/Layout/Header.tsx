@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Play, Search } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 interface HeaderProps {
   currentPage: string;
@@ -30,9 +30,13 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onPageChange }) => {
           <div className="flex items-center">
             <button 
               onClick={() => onPageChange('home')}
-              className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent drop-shadow-lg"
+              className="hover:scale-105 transition-transform duration-300"
             >
-              RADYO DUMAN
+              <img 
+                src="/yanlogo.png" 
+                alt="Radyo Duman Logo" 
+                className="h-8 md:h-10 lg:h-40 w-auto"
+              />
             </button>
           </div>
 
@@ -53,12 +57,6 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onPageChange }) => {
 
           {/* Right Side Icons */}
           <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
-            <button className="p-2 text-gray-300 hover:text-yellow-400 transition-colors">
-              <Search className="h-5 w-5" />
-            </button>
-            <button className="p-2 text-gray-300 hover:text-yellow-400 transition-colors">
-              <Play className="h-5 w-5" />
-            </button>
             <button 
               onClick={handleLiveRadio}
               className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-black px-5 py-2 text-sm md:text-base font-bold hover:from-yellow-400 hover:to-yellow-500 transition-all duration-300 shadow-lg hover:scale-110 rounded-full"
@@ -102,7 +100,6 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onPageChange }) => {
                   }}
                   className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-black px-5 py-3 rounded-full text-base font-bold hover:from-yellow-400 hover:to-yellow-500 transition-all duration-300 flex items-center justify-center space-x-2"
                 >
-                  <Play className="h-5 w-5" />
                   <span>CANLI DİNLE</span>
                 </button>
               </div>

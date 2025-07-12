@@ -1,0 +1,38 @@
+# Admin Panel Güvenlik
+Options -Indexes
+ServerSignature Off
+
+# Sadece belirli IP'lerden erişim (isteğe bağlı)
+# Order Deny,Allow
+# Deny from all
+# Allow from 123.456.789.0/24
+
+# PHP dosyalarını direkt görüntülemeyi engelle
+<Files "*.php">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+# Config dosyalarına erişimi engelle
+<Files "config.php">
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+<Files "function.php">
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+# API dosyalarına sadece POST/GET istekleri
+<Files "api/*.php">
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+# Güvenlik başlıkları
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule> 

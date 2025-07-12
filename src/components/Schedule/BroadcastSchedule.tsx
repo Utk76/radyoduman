@@ -13,7 +13,7 @@ const BroadcastSchedule: React.FC = () => {
     { time: '18:00 - 20:00', program: 'Kum Saati', host: 'Meryem Özbay', type: 'live', days: ['Pazar'] },
     { time: '18:00 - 20:00', program: 'Oto Yayın', host: 'Otomatik Yayın', type: 'live', days: ['Çarşamba', 'Perşembe', 'Cuma'] },
     { time: '20:00 - 22:00', program: 'Oto Yayın', host: 'Müzik Arşivi', type: 'auto', days: ['Cumartesi'] },
-    { time: '22:00 - 02:00', program: 'Oto Yayın', host: 'Can Yılmaz', type: 'live', days: ['Perşembe', 'Cuma'] },
+    { time: '22:00 - 02:00', program: 'Oto Yayın', host: 'Otomatik Yayın', type: 'auto', days: ['Perşembe', 'Cuma'] },
     { time: '02:00 - 06:00', program: 'Oto Yayın', host: 'Otomatik Yayın', type: 'auto', days: ['Pazar'] }
   ];
 

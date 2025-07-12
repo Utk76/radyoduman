@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Users, Headphones, Music } from 'lucide-react';
+import { Users, Headphones, Music } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const [listenerCount, setListenerCount] = useState<number>(18000);
@@ -64,6 +64,17 @@ const Hero: React.FC = () => {
     fetchCurrentSong();
     const interval = setInterval(fetchCurrentSong, 10000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Dinleyici sayısını artır
+  useEffect(() => {
+    const listenerInterval = setInterval(() => {
+      setListenerCount(prev => prev + Math.floor(Math.random() * 3) + 1);
+    }, 3000);
+
+    return () => {
+      clearInterval(listenerInterval);
+    };
   }, []);
 
   useEffect(() => {
@@ -164,8 +175,8 @@ const Hero: React.FC = () => {
             <div className="flex justify-center mb-6">
            {/* Logo */}
 <img 
-  src="/Radyoduman_Logo.png" 
-  alt="Radyo Duman Logo" 
+  src="/logo2.png" 
+  alt="logo2.png" 
   className="h-40 md:h-56 lg:h-[20rem] w-auto animate-pulse hover:scale-105 transition-transform duration-500 filter drop-shadow-2xl"
   style={{
     filter: 'drop-shadow(0 0 25px rgba(255, 215, 0, 0.5)) drop-shadow(0 0 45px rgba(255, 215, 0, 0.3))'
@@ -179,12 +190,12 @@ const Hero: React.FC = () => {
           </div>
 
           {/* Live Indicator */}
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 mb-8">
-            <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-black px-6 py-3 rounded-full text-base md:text-lg lg:text-xl font-bold flex items-center space-x-2 shadow-lg">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 mb-8 mt-12">
+            <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-black px-4 py-2 rounded-full text-sm md:text-base font-bold flex items-center space-x-2 shadow-lg">
               <div className="w-2 h-2 bg-black rounded-full animate-pulse"></div>
               <span>CANLI YAYIN</span>
             </div>
-            <div className="text-yellow-200 text-center sm:text-left">
+            <div className="text-yellow-200 text-center sm:text-left text-sm md:text-base">
               Şimdi Çalan: <span className="text-gray-100 font-medium">{currentSong || 'Bilinmiyor'}</span>
             </div>
           </div>

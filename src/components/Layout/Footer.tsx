@@ -77,14 +77,24 @@ const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-yellow-400">İletişim</h3>
             <div className="space-y-2">
-              <div className="flex items-center space-x-2">
+              <a 
+                href="https://wa.me/905422984175" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-white hover:text-yellow-400 transition-colors"
+              >
                 <Phone className="h-4 w-4 text-yellow-500" />
-                <span className="text-white">0542 298 4175</span>
-              </div>
-              <div className="flex items-center space-x-2">
+                <span>0542 298 4175</span>
+              </a>
+              <a 
+                href="mailto:info.radyoduman@gmail.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-white hover:text-yellow-400 transition-colors"
+              >
                 <Mail className="h-4 w-4 text-yellow-500" />
-                <span className="text-white">info.radyoduman@gmail.com</span>
-              </div>
+                <span>info.radyoduman@gmail.com</span>
+              </a>
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4 text-yellow-500" />
                 <span className="text-white">İstanbul, Türkiye</span>

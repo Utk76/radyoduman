@@ -14,7 +14,7 @@ const FeaturedPrograms: React.FC = () => {
     { time: '18:00 - 20:00', program: 'Oto Yayın', host: 'Otomatik Yayın', type: 'live', days: ['Çarşamba', 'Perşembe', 'Cuma'] },
     { time: '20:00 - 22:00', program: 'Kum Saati', host: 'Meryem Özbay', type: 'live', days: ['Çarşamba', 'Perşembe'] },
     { time: '20:00 - 22:00', program: 'Oto Yayın', host: 'Müzik Arşivi', type: 'auto', days: ['Cumartesi'] },
-    { time: '22:00 - 02:00', program: 'Oto Yayın', host: 'Can Yılmaz', type: 'live', days: ['Perşembe', 'Cuma'] },
+    { time: '22:00 - 02:00', program: 'Oto Yayın', host: 'Otomatik Yayın', type: 'auto', days: ['Perşembe', 'Cuma'] },
     { time: '02:00 - 06:00', program: 'Oto Yayın', host: 'Otomatik Yayın', type: 'auto', days: ['Pazar'] }
   ];
   const days = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'];
@@ -60,11 +60,11 @@ const FeaturedPrograms: React.FC = () => {
                 />
                 {currentProgram && currentProgram.program === program.title && (
                   <div className="absolute top-4 right-4 flex items-center space-x-2 z-10">
-                    <span className={`flex items-center px-4 py-1 rounded-full text-sm font-bold shadow-lg border border-yellow-300 ${currentProgram.type === 'live' ? 'bg-yellow-500 text-black' : 'bg-gray-700 text-yellow-300'}`}>
+                    <span className={`flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold shadow-lg border border-yellow-300 ${currentProgram.type === 'live' ? 'bg-yellow-500 text-black' : 'bg-gray-700 text-yellow-300'}`}>
                       {currentProgram.type === 'live' ? (
-                        <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse mr-2"></span>
+                        <span className="w-1 h-1 bg-red-500 rounded-full animate-pulse mr-0.5"></span>
                       ) : (
-                        <span className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></span>
+                        <span className="w-1 h-1 bg-yellow-400 rounded-full mr-0.5"></span>
                       )}
                       {currentProgram.type === 'live' ? 'CANLI' : 'OTOMATİK'}
                     </span>

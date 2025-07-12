@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Play, Pause, Volume2, VolumeX, Heart, Share2, Radio, Loader2 } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Heart, Radio, Loader2 } from 'lucide-react';
 
 interface TrackInfo {
   title: string;
@@ -328,7 +328,7 @@ const AudioPlayer: React.FC = () => {
     { time: '18:00 - 20:00', program: 'Oto Yayın', host: 'Otomatik Yayın', type: 'live', days: ['Çarşamba', 'Perşembe', 'Cuma'] },
     { time: '20:00 - 22:00', program: 'Kum Saati', host: 'Meryem Özbay', type: 'live', days: ['Çarşamba', 'Perşembe'] },
     { time: '20:00 - 22:00', program: 'Oto Yayın', host: 'Müzik Arşivi', type: 'auto', days: ['Cumartesi'] },
-    { time: '22:00 - 02:00', program: 'Oto Yayın', host: 'Can Yılmaz', type: 'live', days: ['Perşembe', 'Cuma'] },
+    { time: '22:00 - 02:00', program: 'Oto Yayın', host: 'Otomatik Yayın', type: 'auto', days: ['Perşembe', 'Cuma'] },
     { time: '02:00 - 06:00', program: 'Oto Yayın', host: 'Otomatik Yayın', type: 'auto', days: ['Pazar'] }
   ];
   const days = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'];
@@ -392,14 +392,23 @@ const AudioPlayer: React.FC = () => {
             <button
               onClick={togglePlayPause}
               disabled={isLoading}
-              className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-black p-2 sm:p-3 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="relative bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-black p-2 sm:p-3 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-110 active:scale-95 shadow-lg hover:shadow-xl hover:shadow-yellow-500/25"
+              style={{
+                filter: isPlaying ? 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.6))' : 'drop-shadow(0 0 5px rgba(255, 215, 0, 0.3))'
+              }}
             >
+              {isPlaying && (
+                <div className="absolute inset-0 rounded-full bg-white/30 animate-ping" style={{animation: 'slowPing 3s ease-in-out infinite'}}></div>
+              )}
               {isLoading ? (
                 <Loader2 className="h-4 w-4 sm:h-6 sm:w-6 animate-spin" />
               ) : isPlaying ? (
-                <Pause className="h-4 w-4 sm:h-6 sm:w-6" />
+                <Pause className="h-4 w-4 sm:h-6 sm:w-6" style={{animation: 'slowPulse 3s ease-in-out infinite'}} />
               ) : (
-                <Play className="h-4 w-4 sm:h-6 sm:w-6" />
+                <Play className="h-4 w-4 sm:h-6 sm:w-6 hover:scale-110 transition-transform duration-200" />
+              )}
+              {isPlaying && (
+                <div className="absolute inset-0 rounded-full bg-yellow-400/20" style={{animation: 'slowPing 4s ease-in-out infinite'}}></div>
               )}
             </button>
 
@@ -411,10 +420,6 @@ const AudioPlayer: React.FC = () => {
                 }`}
               >
                 <Heart className={`h-4 w-4 sm:h-5 sm:w-5 ${isLiked ? 'fill-current' : ''}`} />
-              </button>
-
-              <button className="p-2 text-yellow-300 hover:text-yellow-400 transition-colors">
-                <Share2 className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>
             </div>
           </div>
